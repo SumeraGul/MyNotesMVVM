@@ -47,9 +47,15 @@ private static final DiffUtil.ItemCallback<Note> CALLBACK = new DiffUtil.ItemCal
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Note note = getItem(position);
+         String title = note.getTitle();
+        String dec = note.getDescription();
+        if (title != null) {
+            holder.titl.setText(title);
+            holder.desc.setText(dec);}
+        
 
-        holder.binding.titletext.setText(note.getTitle());
-        holder.binding.desctext.setText(note.getDescription());
+        // holder.binding.titletext.setText(note.getTitle());
+        // holder.binding.desctext.setText(note.getDescription());
 
 
 
@@ -63,10 +69,14 @@ private static final DiffUtil.ItemCallback<Note> CALLBACK = new DiffUtil.ItemCal
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         EachRowBinding binding;
+          TextView titl, desc;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = EachRowBinding.bind(itemView);
+            titl = binding.titletext;
+            desc = binding.desctext;
+            
 
         }
     }}
