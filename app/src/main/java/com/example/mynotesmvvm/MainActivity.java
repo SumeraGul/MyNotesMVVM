@@ -22,12 +22,15 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     private NoteViewModel noteViewModel;
+      RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+         recyclerView = binding.recyclerview;
+        
         noteViewModel = new ViewModelProvider((ViewModelStoreOwner) this,
                 (ViewModelProvider.Factory) ViewModelProvider
                 .AndroidViewModelFactory.getInstance(getApplication())).get(NoteViewModel.class);
@@ -40,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(i, 1);
             }
         });
-        binding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
-        binding.recyclerview.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter();
-        binding.recyclerview.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
         noteViewModel.getNotelist().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(List<Note> notes) {
